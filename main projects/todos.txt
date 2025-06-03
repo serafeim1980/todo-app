@@ -1,4 +1,3 @@
 read python
 Clean the code
-watch football
-eat pizzamaster python
+master python
