@@ -1,7 +1,10 @@
 import functions
 import FreeSimpleGUI as sg
 import time
-
+import os
+if not os.path.exists("todos.txt"):
+    with open("todos.txt", 'w') as file:
+        pass
 
 # if i want to dont write FreeSimpleGui all over again i can just write import FreeSimpleGui as sg and replace the FreeSimpleGui below
 sg.theme("black")
@@ -9,7 +12,8 @@ sg.theme("black")
 clock = sg.Text('', key='clock')
 label = sg.Text("Type in a To-Do")
 input_box = sg.InputText(tooltip="Enter a todo", key="todo")
-add_button = sg.Button("Add", size=10)
+add_button = sg.Button("Add", size=10,)
+#add_button = sg.Button(image.source="add.png", size=10, mouseover_colours="LightBlue2, tooltip="Add to-do, key="Add")
 list_box = sg.Listbox(values=functions.get_todos(), key='todos',
                                  enable_events=True, size=[45, 10])
 edit_button = sg.Button("Edit")
@@ -25,6 +29,9 @@ window = sg.Window('My To-Do App',
 
 while True:
     event, values = window.read(timeout=10)
+
+    if event == sg.WINDOW_CLOSED or event == "Exit":
+        break
     window['clock'].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
     match event:
         case "Add":
@@ -62,9 +69,9 @@ while True:
             break
 
         case 'todos':
-            window['todo'].update(value=values['todos'][0])
-        case sg.WIN_CLOSED:
-            break
-
+            if values['todos']:  # αν υπάρχει επιλεγμένο στοιχείο
+                window['todo'].update(value=values['todos'][0])
+            else:
+                window['todo'].update(value='')
 
 window.close()
