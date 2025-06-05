@@ -1,3 +1,4 @@
 read python
 Clean the code
 master python
+day 19
