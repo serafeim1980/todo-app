@@ -1,4 +1,5 @@
 import FreeSimpleGUI as sg
+import streamlit
 
 
 sg.theme("Black")
