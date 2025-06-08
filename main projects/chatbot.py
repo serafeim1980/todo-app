@@ -2,13 +2,14 @@ import FreeSimpleGUI as sg
 import streamlit
 
 
+
 sg.theme("Black")
 layout = [
     [sg.Text("Ask me something:")],
     [sg.InputText(key="USER_INPUT")],
     [sg.Button("Send")],
-    [sg.Text("", size=(40, 10), key="RESPONSE")]
-]
+    [sg.Text("", size=(40, 10), key="RESPONSE")]]
+
 
 window = sg.Window("Sera chatbot", layout)
 
