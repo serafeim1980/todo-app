@@ -1,17 +1,4 @@
-import FreeSimpleGUI as sg
-import streamlit
-
-
-
-sg.theme("Black")
-layout = [
-    [sg.Text("Ask me something:")],
-    [sg.InputText(key="USER_INPUT")],
-    [sg.Button("Send")],
-    [sg.Text("", size=(40, 10), key="RESPONSE")]]
-
-
-window = sg.Window("Sera chatbot", layout)
+import streamlit as st
 
 def get_response(user_input):
     user_input = user_input.lower().strip()
@@ -31,27 +18,19 @@ def get_response(user_input):
     else:
         return "Niko?", False
 
-while True:
-    event, values = window.read()
+st.title("Sera Chatbot")
 
-    if event == sg.WINDOW_CLOSED:
-        break
+if 'exit' not in st.session_state:
+    st.session_state.exit = False
 
-    if event == "Send":
-        user_input = values["USER_INPUT"]
-        response, should_exit = get_response(user_input)
-        window["RESPONSE"].update(f"Sera: {response}")
+user_input = st.text_input("Ask me something:")
 
-        window["USER_INPUT"].update("")
+if user_input and not st.session_state.exit:
+    response, should_exit = get_response(user_input)
+    st.write("Sera: ", response)
 
-        if should_exit:
-            sg.popup("Exiting chatbot. Goodbye!")
-            break
-
-
-window.close()
-
-
-
+    if should_exit:
+        st.session_state.exit = True
+        st.write("Exiting chatbot. Goodbye!")
 
 
